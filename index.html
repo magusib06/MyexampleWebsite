@@ -1,106 +1,148 @@
-<!DOCTYPE html>
-<html lang="en">
+ <!DOCTYPE html>
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday!</title>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #f4f4f4 60%, #e3f0ff 100%);
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+<title>Happy Birthday!</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family: 'Montserrat', sans-serif; /* Modern, readable font */
+    background: linear-gradient(to right, #fceabb, #f8b500); /* Warm gradient background */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #333; /* Default text color */
+    overflow: hidden; /* Hide scrollbar if content is smaller than viewport */
+  }
+  .container {
+    background-color: #ffffff;
+    border-radius: 15px; /* Softer rounded corners */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Deeper, more elegant shadow */
+    padding: 40px;
+    max-width: 650px;
+    text-align: center;
+    animation: fadeInScale 1s ease-out forwards; /* Fade-in and scale animation */
+    position: relative;
+    overflow: hidden; /* For background flourishes */
+  }
+
+  /* Subtle background flourish within the container */
+  .container::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .container::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif; /* Elegant serif font for heading */
+    color: #e67e22; /* Warm orange */
+    font-size: 3.5em;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1); /* Soft text shadow */
+  }
+  h2 {
+    font-family: 'Montserrat', sans-serif;
+    color: #34495e; /* Darker blue-grey */
+    font-size: 1.6em;
+    margin-bottom: 25px;
+    font-weight: 600; /* Slightly bolder */
+  }
+  p {
+    color: #555555;
+    font-size: 1.1em;
+    line-height: 1.7;
+    margin-bottom: 18px;
+  }
+  .signature {
+    margin-top: 35px;
+    font-style: italic;
+    color: #7f8c8d; /* Muted grey */
+    font-size: 0.95em;
+  }
+  .signature p {
+      margin-bottom: 5px;
+  }
+  .button {
+    display: inline-block;
+    background-color: #f8b500; /* Vibrant yellow-orange */
+    color: #ffffff;
+    padding: 14px 30px;
+    border-radius: 50px; /* Pill-shaped button */
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 25px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 15px rgba(248, 181, 0, 0.4); /* Button shadow */
+  }
+  .button:hover {
+    background-color: #e6a200; /* Slightly darker on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+  }
+
+  /* Keyframe animation for fade-in and scale */
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
     }
-    .container {
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-      padding: 40px 32px;
-      max-width: 480px;
-      width: 100%;
-      text-align: center;
+    to {
+      opacity: 1;
+      transform: scale(1);
     }
-    h1 {
-      color: #007bff;
-      font-size: 2.4em;
-      margin-bottom: 10px;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
-    h2 {
-      color: #333;
-      font-size: 1.3em;
-      margin-bottom: 24px;
-      font-weight: 400;
-    }
-    p {
-      color: #444;
-      font-size: 1.07em;
-      line-height: 1.7;
-      margin-bottom: 18px;
-    }
-    .signature {
-      margin-top: 32px;
-      font-style: italic;
-      color: #888;
-      font-size: 1em;
-    }
-    .button {
-      display: inline-block;
-      background: #007bff;
-      color: #fff;
-      padding: 12px 28px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 700;
-      margin-top: 24px;
-      transition: background 0.3s;
-      box-shadow: 0 2px 8px rgba(0,123,255,0.08);
-      border: none;
-      cursor: pointer;
-    }
-    .button:focus,
-    .button:hover {
-      background: #0056b3;
-      outline: none;
-    }
-    @media (max-width: 600px) {
-      .container {
-        padding: 24px 8px;
-      }
-      h1 {
-        font-size: 2em;
-      }
-      h2 {
-        font-size: 1.1em;
-      }
-    }
-  </style>
+  }
+
+  /* Optional: Add a small birthday icon or confetti */
+  .header-icon {
+      margin-bottom: 20px;
+  }
+</style>
 </head>
 <body>
-  <main class="container" role="main" aria-label="Birthday Greeting">
-    <h1>Happy Birthday!</h1>
-    <h2>Wishing You a Day of Celebration and Success</h2>
-    <p>Dear <span id="recipient-name">[Recipient's Name]</span>,</p>
-    <p>
-      On behalf of the entire team, we extend our warmest wishes to you on your birthday. May this special day bring you joy, relaxation, and well-deserved celebration.
-    </p>
-    <p>
-      Your dedication and contributions are truly valued, and we look forward to achieving many more milestones together.
-    </p>
-    <p>
-      May the year ahead be filled with growth, prosperity, and personal fulfillment.
-    </p>
-    <div class="signature">
-      <p>Sincerely,</p>
-      <p id="sender-name">[Your Name/Company Name]</p>
-    </div>
-    <a href="mailto:[Recipient's Email]?subject=Happy%20Birthday!" class="button" aria-label="Send a Personal Message">Send a Personal Message</a>
-  </main>
+
+<div class="container">
+  <!-- You could place a small icon here, e.g., a party hat emoji or image -->
+  <!-- <div class="header-icon">
+    <img src="path/to/birthday_icon.png" alt="Birthday Icon" style="width: 60px; height: auto;">
+  </div> -->
+
+  <h1>Happy Birthday!</h1>
+  <h2>Wishing You a Day of Celebration and Success</h2>
+  
+  <p>Dear Johanah potawan,</p>
+  
+  <p>On behalf of the entire team, I would like to extend our warmest wishes to you on your birthday. We hope this special day brings you joy, relaxation, and well-deserved celebration.</p>
+  
+  <p>We truly value your invaluable contributions and unwavering dedication, and we look forward to achieving many more wonderful milestones together.</p>
+  
+  <p>May the year ahead be filled with continued growth, prosperity, and personal fulfillment.</p>
+  
+  <div class="signature">
+    <p>Sincerely,</p>
+    <p>The [Your Company/Team Name] Team</p>
+  </div>
+  
+  <a href="#" class="button">Send a Personal Greeting</a>
+</div>
+
 </body>
 </html>
