@@ -1,0 +1,557 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cafe De Juan</title>
+  <!-- Favicon (assuming this is what you intended for the image link) -->
+  <link rel="icon" href="juans coffee.png" type="image/png">
+  <!-- Google Fonts for Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: #333;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 8%;
+      background-color: #9c7b35;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .logo span {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #3b2e2a;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #3b2e2a;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #b38b59;
+    }
+
+    .order-btn {
+      background-color: #3b2e2a;
+      color: #fff;
+      padding: 0.7rem 1.5rem;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .order-btn:hover {
+      background-color: #b38b59;
+    }
+
+    /* Mobile menu toggle (added for better responsiveness) */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background-color: #3b2e2a;
+      margin: 3px 0;
+      transition: 0.3s;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 4rem 10%;
+      background: #fff;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 3rem); /* Responsive font size */
+      font-weight: 700;
+      color: #2d1f17;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1rem;
+      color: #5e4a3a;
+      margin-bottom: 1rem;
+    }
+
+    .promo-btn {
+      background-color: #b38b59;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.2rem;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .promo-btn:hover {
+      background-color: #3b2e2a;
+    }
+
+    .search-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      padding: 2rem 10%;
+      flex-wrap: wrap; /* Better for mobile */
+    }
+
+    .search-bar {
+      width: 100%;
+      max-width: 400px; /* Limit width on large screens */
+      padding: 0.8rem 1rem;
+      border: 1px solid #d5c6b8;
+      border-radius: 25px;
+      font-size: 1rem;
+    }
+
+    .search-btn {
+      background-color: #3b2e2a;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .search-btn:hover {
+      background-color: #b38b59;
+    }
+
+    .categories {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 2rem 10%;
+      padding: 1rem 0;
+    }
+
+    .category {
+      text-align: center;
+      color: #3b2e2a;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      min-width: 120px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .category:hover,
+    .category.active {
+      transform: translateY(-2px);
+      background-color: #b38b59;
+      color: white;
+    }
+
+    .menu-section {
+      padding: 4rem 10%;
+      background: #faf7f4;
+    }
+
+    .menu-section h2 {
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      color: #2d1f17;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-align: center;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .card.hidden {
+      display: none;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 15px;
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      font-size: 1.1rem;
+      color: #2d1f17;
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: #6f5a4a;
+      margin-bottom: 0.5rem;
+    }
+
+    .card span {
+      font-weight: 600;
+      color: #3b2e2a;
+      font-size: 1.1rem;
+    }
+
+    .testimonials {
+      padding: 4rem 10%;
+      background: #fff;
+    }
+
+    .testimonials h2 {
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      color: #2d1f17;
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .testimonial-box {
+      background-color: #faf7f4;
+      padding: 2rem;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .testimonial-box p {
+      font-size: 1rem;
+      color: #4e3b2f;
+      margin-bottom: 1rem;
+      font-style: italic;
+    }
+
+    .testimonial-box h4 {
+      color: #3b2e2a;
+      font-weight: 600;
+    }
+
+    footer {
+      background-color: #3b2e2a;
+      color: white;
+      text-align: center;
+      padding: 2rem 10%;
+      margin-top: 2rem;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+    }
+
+    footer p {
+      font-size: 0.9rem;
+    }
+
+    /* Responsive Design Improvements */
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem 5%;
+        flex-wrap: wrap;
+      }
+
+      nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        padding: 1rem;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      }
+
+      nav ul.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .search-section {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .search-bar {
+        width: 100%;
+      }
+
+      .categories {
+        margin: 2rem 5%;
+        gap: 1rem;
+      }
+
+      .menu-section,
+      .testimonials {
+        padding: 2rem 5%;
+      }
+
+      .hero {
+        padding: 2rem 5%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="juans coffee.png" alt="Cafe De Juan Logo">
+      <span>Cafe De Juan</span>
+    </div>
+    <nav>
+      <ul id="nav-menu">
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#menu" onclick="showAllMenuItems()">Menu</a></li>
+        <li><a href="#Location">Location</a></li>
+      </ul>
+    </nav>
+    <a href="#order" class="order-btn">Order Now</a>
+    <!-- Mobile menu toggle -->
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
+
+  <section class="hero" id="hero">
+    <h1>We deliver nothing but the finest coffee experience</h1>
+    <p>☕ 50% off on several items</p>
+    <button class="promo-btn" onclick="alert('Redirecting to shop...')">Shop Now</button>
+  </section>
+
+  <section class="search-section">
+    <form style="display: flex; width: 100%; max-width: 500px;">
+      <input type="text" placeholder="Search here..." class="search-bar">
+      <button type="submit" class="search-btn">Search</button>
+    </form>
+  </section>
+
+  <div class="categories" id="categories">
+    <div class="category active" onclick="filterCategory('all')">All</div>
+    <div class="category" onclick="filterCategory('hot')">☕ Hot Coffee</div>
+    <div class="category" onclick="filterCategory('cold')">🥤 Cold Coffee</div>
+    <div class="category" onclick="filterCategory('dessert')">🍰 Dessert</div>
+    <div class="category" onclick="filterCategory('tea')">🍵 Tea</div>
+  </div>
+
+  <section class="menu-section" id="menu">
+    <h2>Our Menu</h2>
+    <div class="menu-grid" id="menu-grid">
+      <div class="card" data-category="hot">
+        <img src="Espresso Delight_1.png" alt="Espresso Delight">
+        <h3>Espresso Delight</h3>
+        <p>Rich aroma and bold flavor.</p>
+        <span>₱180.00</span>
+      </div>
+      <div class="card" data-category="hot">
+        <img src="Americano Bliss.png" alt="Americano Bliss">
+        <h3>Americano Bliss</h3>
+        <p>Perfectly balanced taste.</p>
+        <span>₱175.00</span>
+      </div>
+      <div class="card" data-category="hot">
+        <img src="Cappuccino Charm.png" alt="Cappuccino Charm">
+        <h3>Cappuccino Charm</h3>
+        <p>Creamy texture and smooth foam.</p>
+        <span>₱160.00</span>
+      </div>
+      <div class="card" data-category="cold">
+        <img src="Mocha Magic.png" alt="Mocha Magic">
+        <h3>Mocha Magic</h3>
+        <p>Chocolate twist for your cravings.</p>
+        <span>₱190.00</span>
+      </div>
+      <!-- Added a couple more sample items for variety -->
+      <div class="card" data-category="cold">
+        <img src="Iced Latte.png" alt="Iced Latte"> <!-- Replace with real image -->
+        <h3>Iced Latte</h3>
+        <p>Refreshing and smooth.</p>
+        <span>₱165.00</span>
+      </div>
+      <div class="card" data-category="dessert">
+        <img src="Cheese Cake.png" alt="Cheese Cake"> <!-- Replace with real image -->
+        <h3>Cheese Cake</h3>
+        <p>Decadent and creamy.</p>
+        <span>₱120.00</span>
+      </div>
+      <div class="card" data-category="tea">
+        <img src="Green Tea.png" alt="Green Tea"> <!-- Replace with real image -->
+        <h3>Green Tea</h3>
+        <p>Soothing and antioxidant-rich.</p>
+        <span>₱140.00</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials" id="testimonials">
+    <h2>What Our Customers Say</h2>
+    <div class="testimonial-grid">
+      <div class="testimonial-box">
+        <p>"The coffee here is absolutely amazing. Rich, aromatic, and perfectly brewed every time."</p>
+        <h4>- Ann Patricia</h4>
+      </div>
+      <div class="testimonial-box">
+        <p>"A cozy atmosphere and friendly staff. This place makes my mornings complete!"</p>
+        <h4>- Brayan Kim Santos</h4>
+      </div>
+      <!-- Added one more testimonial for balance -->
+      <div class="testimonial-box">
+        <p>"Best desserts to pair with coffee. Highly recommend the mocha!"</p>
+        <h4>- Johanah Potawan</h4>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2024 Cafe De Juan | Crafted with ☕ and ❤️ | Cainta, Rizal, Philippines</p>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    function toggleMenu() {
+      const navMenu = document.getElementById('nav-menu');
+      navMenu.classList.toggle('active');
+    }
+
+    // Show all menu items (resets filters)
+    function showAllMenuItems() {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        card.classList.remove('hidden');
+      });
+      // Reset active category
+      document.querySelectorAll('.category').forEach(cat => cat.classList.remove('active'));
+      document.querySelector('.category[onclick="filterCategory(\'all\')"]').classList.add('active');
+      // Clear search
+      document.querySelector('.search-bar').value = '';
+    }
+
+    // Simple search functionality (basic filter)
+    document.querySelector('.search-section form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const query = document.querySelector('.search-bar').value.toLowerCase();
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        if (text.includes(query)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+
+    // Category filter
+    function filterCategory(category) {
+      const cards = document.querySelectorAll('.card');
+      // Update active category styling
+      document.querySelectorAll('.category').forEach(cat => cat.classList.remove('active'));
+      event.target.classList.add('active');
+
+      cards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    // Smooth scrolling for nav links (with menu reset)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+          targetSection.scrollIntoView({
+            behavior: 'smooth'
+          });
+          // If it's the menu link, show all items
+          if (targetId === 'menu') {
+            showAllMenuItems();
+          }
+        }
+      });
+    });
+
+    // Initialize: Show all on load
+    showAllMenuItems();
+  </script>
+
+</body>
+</html>
